@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Enviroment TW</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Capacity(%)</string>
     <string name="action_settings">Settings</string>
 
     <string name="internet">Internet</string>
     <string name="internet_detail">Does not have Internet</string>
     <string name="gps_fail">GPS fail</string>
+    <string name="detail">Detail</string>
+
+    <string name="radiation">Radiation</string>
+    <string name="radiation_map">Radiation Map</string>
+    <string name="water_Reservoir">Water Reservoir</string>
 </resources>

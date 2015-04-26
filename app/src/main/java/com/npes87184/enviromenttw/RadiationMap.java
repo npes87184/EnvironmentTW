@@ -113,7 +113,7 @@ public class RadiationMap  extends Fragment implements FetchTask.OnFetchListener
             radiation.setOnFetchListener(this);
             radiation.execute(DataType.Radiation);
         } else {
-
+            Toast.makeText(getActivity(), getString(R.string.internet_detail), Toast.LENGTH_LONG).show();
         }
 
         return v;
@@ -125,6 +125,11 @@ public class RadiationMap  extends Fragment implements FetchTask.OnFetchListener
             inputStrings[i] = DataFetcher.getInstance().getRadiations().get(i).getLocation() + "：" +DataFetcher.getInstance().getRadiations().get(i).getValue();
         }
         setupWebView();
+    }
+
+    @Override
+    public void OnWaterFetchFinished() {
+
     }
 
     private void setupWebView() {

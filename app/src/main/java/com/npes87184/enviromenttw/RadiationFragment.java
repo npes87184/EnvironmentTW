@@ -100,4 +100,9 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         }
         layout.setRefreshing(false);
     }
+
+    @Override
+    public void OnWaterFetchFinished() {
+
+    }
 }

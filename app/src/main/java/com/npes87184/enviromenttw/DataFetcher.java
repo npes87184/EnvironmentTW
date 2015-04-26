@@ -1,15 +1,16 @@
 package com.npes87184.enviromenttw;
 
-import com.npes87184.enviromenttw.model.Radiation;
+import com.npes87184.enviromenttw.model.DataContainer;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,7 +21,8 @@ import java.util.ArrayList;
  */
 public class DataFetcher {
 
-    private ArrayList<Radiation> radiations = new ArrayList<Radiation>();
+    private ArrayList<DataContainer> radiations = new ArrayList<DataContainer>();
+    private ArrayList<DataContainer> water = new ArrayList<DataContainer>();
 
     private DataFetcher() {
     }
@@ -32,6 +34,33 @@ public class DataFetcher {
             mFetcher = new DataFetcher();
         }
         return mFetcher;
+    }
+
+    public void fetchWater() {
+        water.clear();
+        try {
+            Document doc = Jsoup.connect("http://fhy.wra.gov.tw/ReservoirPage_2011/StorageCapacity.aspx").get();
+            Elements tableTags = doc.getElementsByAttributeValue("class", "list nowrap").select("table");
+            Elements tdTags = tableTags.select("td").not("td[colspan]");
+
+            for (int i = 0; i < tdTags.size(); i += 12) {
+                if (i + 12 <= tdTags.size() - 1) {
+                    if ((i + 11) % 12 == 11 && tdTags.get(i + 11).text().equals("--")) {
+                        continue;
+                    } else {
+                        DataContainer temp = new DataContainer(tdTags.get(i).text(), tdTags.get(i + 11).text().replace(" %", ""));
+                        water.add(temp);
+                    }
+                }
+            }
+
+        } catch(Exception e) {
+
+        }
+    }
+
+    public ArrayList<DataContainer> getWater() {
+        return water;
     }
 
     public void fetchRadiation() {
@@ -49,7 +78,7 @@ public class DataFetcher {
                     first = false;
                     continue;
                 }
-                Radiation temp = new Radiation(data[0], data[2]);
+                DataContainer temp = new DataContainer(data[0], data[2]);
                 radiations.add(temp);
             }
             first = true;
@@ -60,7 +89,7 @@ public class DataFetcher {
         }
     }
 
-    public ArrayList<Radiation> getRadiations() {
+    public ArrayList<DataContainer> getRadiations() {
         return radiations;
     }
 }

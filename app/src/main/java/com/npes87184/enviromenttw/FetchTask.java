@@ -7,13 +7,14 @@ import android.os.AsyncTask;
  */
 
 enum DataType {
-    Radiation, Capacity
+    Radiation, Water
 }
 
 public class FetchTask extends AsyncTask<DataType, Void, DataType> {
 
     interface OnFetchListener {
         public void OnRadiationFetchFinished();
+        public void OnWaterFetchFinished();
     }
 
     private OnFetchListener onFetchListener;
@@ -24,6 +25,9 @@ public class FetchTask extends AsyncTask<DataType, Void, DataType> {
             case Radiation:
                 DataFetcher.getInstance().fetchRadiation();
                 break;
+            case Water:
+                DataFetcher.getInstance().fetchWater();
+                break;
         }
         return params[0];
     }
@@ -33,6 +37,9 @@ public class FetchTask extends AsyncTask<DataType, Void, DataType> {
         switch (param) {
             case Radiation:
                 onFetchListener.OnRadiationFetchFinished();
+                break;
+            case Water:
+                onFetchListener.OnWaterFetchFinished();
                 break;
         }
     }
