@@ -2,7 +2,7 @@ EnvironmentTW
 ========
 Show radiation, water, air information of Taiwan. 
 
-[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)]()
+[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=com.npes87184.enviromenttw)
 
 Latest Version
 ========
