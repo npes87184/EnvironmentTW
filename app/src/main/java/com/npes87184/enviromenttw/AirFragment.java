@@ -16,21 +16,21 @@ import com.dexafree.materialList.view.MaterialListView;
 /**
  * Created by npes87184 on 2015/4/26.
  */
-public class RadiationFragment extends Fragment implements FetchTask.OnFetchListener {
+public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     private View v;
     MaterialListView mListView;
     PullRefreshLayout layout;
 
-    public static RadiationFragment newInstance(int index) {
-        RadiationFragment radiationFragment = new RadiationFragment();
+    public static AirFragment newInstance(int index) {
+        AirFragment airFragment = new AirFragment();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("home", index);
-        radiationFragment.setArguments(args);
+        airFragment.setArguments(args);
 
-        return radiationFragment;
+        return airFragment;
     }
 
     @Override
@@ -50,9 +50,9 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
-            FetchTask radiation = new FetchTask();
-            radiation.setOnFetchListener(this);
-            radiation.execute(DataType.Radiation);
+            FetchTask air = new FetchTask();
+            air.setOnFetchListener(this);
+            air.execute(DataType.Air);
         } else {
             mListView.clear();
             SmallImageCard card = new SmallImageCard(getActivity());
@@ -70,9 +70,9 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
                 ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = CM.getActiveNetworkInfo();
                 if((info != null) && info.isConnected()) {
-                    FetchTask radiation = new FetchTask();
-                    radiation.setOnFetchListener(RadiationFragment.this);
-                    radiation.execute(DataType.Radiation);
+                    FetchTask air = new FetchTask();
+                    air.setOnFetchListener(AirFragment.this);
+                    air.execute(DataType.Air);
                 } else {
                     mListView.clear();
                     SmallImageCard card = new SmallImageCard(getActivity());
@@ -90,15 +90,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnRadiationFetchFinished() {
-        mListView.clear();
-        for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
-            SmallImageCard card = new SmallImageCard(getActivity());
-            card.setDescription(DataFetcher.getInstance().getRadiations().get(i).getValue());
-            card.setTitle(DataFetcher.getInstance().getRadiations().get(i).getLocation());
-            card.setDrawable(R.drawable.ic_launcher);
-            mListView.add(card);
-        }
-        layout.setRefreshing(false);
+
     }
 
     @Override
@@ -108,6 +100,15 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnAirFinished() {
-
+        mListView.clear();
+        for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
+            SmallImageCard card = new SmallImageCard(getActivity());
+            card.setDescription(DataFetcher.getInstance().getAir().get(i).getValue());
+            card.setTitle(DataFetcher.getInstance().getAir().get(i).getLocation());
+            card.setDrawable(R.drawable.ic_launcher);
+            mListView.add(card);
+        }
+        layout.setRefreshing(false);
     }
+
 }

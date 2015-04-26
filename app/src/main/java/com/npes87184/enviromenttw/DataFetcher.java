@@ -23,6 +23,7 @@ public class DataFetcher {
 
     private ArrayList<DataContainer> radiations = new ArrayList<DataContainer>();
     private ArrayList<DataContainer> water = new ArrayList<DataContainer>();
+    private ArrayList<DataContainer> air = new ArrayList<DataContainer>();
 
     private DataFetcher() {
     }
@@ -91,6 +92,36 @@ public class DataFetcher {
 
     public ArrayList<DataContainer> getRadiations() {
         return radiations;
+    }
+
+    public void fetchAir() {
+        air.clear();
+        try {
+            boolean first = true;
+            DefaultHttpClient client = new DefaultHttpClient();
+            HttpGet method = new HttpGet(new URI("http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=PSI&$skip=0&$top=1000&format=csv"));
+            HttpResponse res = client.execute(method);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
+            String line;
+            while((line = reader.readLine())!=null) {
+                String [] data = line.split(",");
+                if(first) {
+                    first = false;
+                    continue;
+                }
+                DataContainer temp = new DataContainer(data[1], data[0] + "：" + data[2]);
+                air.add(temp);
+            }
+            first = true;
+        } catch (IOException e) {
+
+        } catch (URISyntaxException e) {
+
+        }
+    }
+
+    public ArrayList<DataContainer> getAir() {
+        return air;
     }
 }
 

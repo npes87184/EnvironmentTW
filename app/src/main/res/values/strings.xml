@@ -12,4 +12,5 @@
     <string name="radiation">Radiation</string>
     <string name="radiation_map">Radiation Map</string>
     <string name="water_Reservoir">Water Reservoir</string>
+    <string name="air">Air</string>
 </resources>
