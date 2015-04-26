@@ -13,8 +13,6 @@ import com.baoyz.widget.PullRefreshLayout;
 import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.view.MaterialListView;
 
-import java.util.ArrayList;
-
 /**
  * Created by npes87184 on 2015/4/26.
  */

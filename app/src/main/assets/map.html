@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+	
+function initialize() {
+  var myLatlng = new google.maps.LatLng(AndroidFunction.getLat(),AndroidFunction.getLng());
+  var mapOptions = {
+    zoom: 11,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+   var image = 'pin.png';
+   var myLatLng = new google.maps.LatLng(AndroidFunction.getLat(),AndroidFunction.getLng());
+   var infowindow = new google.maps.InfoWindow({
+      content: '我在這裡！'
+  });
+  
+  var beachMarker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+  });
+  google.maps.event.addListener(beachMarker, 'click', function() {
+    infowindow.open(map,beachMarker);
+  });
+  
+   	var location = [
+	[25.269208, 121.570164], //石門
+	[25.259586,121.50066200000003], //三芝
+	[25.282467,121.55994599999997], //石崩山
+	[22.887452,120.66289499999993], //茂林
+	[25.221990, 121.610543], //金山
+	[25.204757,121.68961719999993], //野柳
+	[25.213409, 121.645476], //大鵬
+	[25.15364,121.54786200000001], //陽明山
+	[25.166635, 121.638569], //大坪
+	[25.178339, 121.644304], //萬里
+	[25.0329636,121.56542680000007], //台北
+	[24.7021073,121.73775019999994], //宜蘭
+	[24.8444927,121.20539630000007], //龍潭
+	[24.1477358,120.6736482], //台中
+	[22.7972447,121.07137020000005], //台東
+	[22.6272784,120.30143529999998], //高雄
+	[21.9773373,120.74648969999998], //恆春
+	[21.980541666667, 120.72974444444], //龍泉
+	[21.951361111111, 120.74048333333], //大光
+	[21.945133333333, 120.80132777778], //墾丁
+	[21.944544444444, 120.74337222222], //後壁湖
+	[25.047575, 121.92381111111], //澳底
+	[25.010791666667, 121.91975277778], //貢寮
+	[23.508177777778, 120.81319166667], //阿里山
+	[24.409044444444, 118.28927222222], //金門
+	[22.049308333333, 121.51243333333], //蘭嶼
+	[23.037958333333, 120.23673055556], //台南
+	[25.030563888889, 121.92868333333], //龍門
+	[25.035308333333, 121.86281944444], //雙溪
+	[25.053694444444, 121.88053055556], //三港
+	[24.784136111111, 120.99300555556], //新竹
+	[23.977619444444, 121.61317222222], //花蓮
+	[23.565319444444, 119.563225], //澎湖
+	[26.169322222222, 119.92323333333], //馬祖
+	[22.006041666667, 120.817175], //滿州
+	[24.997872222222, 121.44254722222], //板橋
+	[22.692866666667, 120.48907222222], //屏東
+	[25.13955, 121.71506111111], //基隆
+	[24.944558333333, 121.90321388889], //頭城
+	[24.827833333333, 121.01428888889], //竹北
+	[24.581844444444, 120.84264722222], //苗栗
+	[23.881361111111, 120.90805833333], //南投
+	[24.063530555556, 120.536], //彰化
+	[23.6989, 120.53083611111], //雲林
+	[23.495969444444, 120.43309444444], //嘉義
+]; 
+
+    var marker;
+    for (i = 0; i < location.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location[i][0], location[i][1]),
+		animation: google.maps.Animation.DROP,
+        map: map
+		});
+		
+		 
+		
+	  (function(marker, i) {
+       // add click event
+          google.maps.event.addListener(marker, 'click', function() {
+		  infowindow = new google.maps.InfoWindow({
+             content: AndroidFunction.getData(i)
+          });
+			infowindow.open(map, marker);
+          });
+          })(marker, i);
+	  }
+	}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>

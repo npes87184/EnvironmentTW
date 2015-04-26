@@ -6,4 +6,5 @@
 
     <string name="internet">Internet</string>
     <string name="internet_detail">Does not have Internet</string>
+    <string name="gps_fail">GPS fail</string>
 </resources>
