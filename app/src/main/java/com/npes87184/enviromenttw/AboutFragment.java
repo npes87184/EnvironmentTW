@@ -95,6 +95,11 @@ public class AboutFragment extends Fragment {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);
+                } else if(view.getTag().toString().equals("code")) {
+                    String url = "https://github.com/npes87184/EnvironmentTW";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
                 }
             }
 
@@ -124,6 +129,13 @@ public class AboutFragment extends Fragment {
         icon.setTitle("Icon");
         icon.setTag("icon");
         mListView.add(icon);
+
+        SmallImageCard code = new SmallImageCard(getActivity());
+        code.setDescription(getString(R.string.code_detail));
+        code.setDrawable(R.drawable.code);
+        code.setTitle("GirHub");
+        code.setTag("code");
+        mListView.add(code);
 
         SmallImageCard contact = new SmallImageCard(getActivity());
         contact.setDescription(getString(R.string.contact_detail));
