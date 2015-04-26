@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Enviroment TW</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="internet">Internet</string>
+    <string name="internet_detail">Does not have Internet</string>
+</resources>
