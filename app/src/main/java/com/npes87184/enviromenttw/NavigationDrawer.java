@@ -21,7 +21,7 @@ public class NavigationDrawer extends MaterialNavigationDrawer {
         this.addSection(newSection("Section",R.drawable.ic_hotel_grey600_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#03a9f4")));
 */
         // create bottom section
-        //this.addBottomSection(newSection("Bottom Section",R.drawable.ic_menu_info_details,new Intent(this,Settings.class)));
+        this.addBottomSection(newSection(getString(R.string.about),R.drawable.ic_menu_info_details, AboutFragment.newInstance(4)));
 
         // add pattern
         this.setBackPattern(MaterialNavigationDrawer.BACKPATTERN_BACK_ANYWHERE);
