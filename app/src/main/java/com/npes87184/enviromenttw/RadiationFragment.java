@@ -94,8 +94,14 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
             SmallImageCard card = new SmallImageCard(getActivity());
             card.setDescription(DataFetcher.getInstance().getRadiations().get(i).getValue());
+            if(Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue())>0.2) {
+                card.setDrawable(R.drawable.normal);
+            } else if(Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue())>20) {
+                card.setDrawable(R.drawable.bad);
+            } else {
+                card.setDrawable(R.drawable.good);
+            }
             card.setTitle(DataFetcher.getInstance().getRadiations().get(i).getLocation());
-            card.setDrawable(R.drawable.ic_launcher);
             mListView.add(card);
         }
         layout.setRefreshing(false);

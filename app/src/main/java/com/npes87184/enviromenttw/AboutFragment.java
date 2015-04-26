@@ -48,7 +48,7 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        v = inflater.inflate(R.layout.fragment_radiation, container, false);
+        v = inflater.inflate(R.layout.fragment_about, container, false);
         mListView = (MaterialListView) v.findViewById(R.id.material_listview);
         mListView.setOnDismissCallback(new OnDismissCallback() {
             @Override
@@ -90,6 +90,11 @@ public class AboutFragment extends Fragment {
                         }
                     });
                     alert.show();
+                } else if(view.getTag().toString().equals("icon")) {
+                    String url = "http://icons8.com";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
                 }
             }
 
@@ -108,9 +113,17 @@ public class AboutFragment extends Fragment {
 
         SmallImageCard library = new SmallImageCard(getActivity());
         library.setDescription("Jsoup, PullRefreshLayout, Materiallist and MaterialNavigationDrawer");
+        library.setDrawable(R.drawable.library);
         library.setTitle("Library");
         library.setTag("library");
         mListView.add(library);
+
+        SmallImageCard icon = new SmallImageCard(getActivity());
+        icon.setDescription("http://icons8.com");
+        icon.setDrawable(R.drawable.icon8);
+        icon.setTitle("Icon");
+        icon.setTag("icon");
+        mListView.add(icon);
 
         SmallImageCard contact = new SmallImageCard(getActivity());
         contact.setDescription(getString(R.string.contact_detail));

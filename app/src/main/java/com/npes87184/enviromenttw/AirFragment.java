@@ -104,8 +104,14 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
             SmallImageCard card = new SmallImageCard(getActivity());
             card.setDescription(DataFetcher.getInstance().getAir().get(i).getValue());
+            if(Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1])<50) {
+                card.setDrawable(R.drawable.good);
+            } else if(Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1])<100) {
+                card.setDrawable(R.drawable.normal);
+            } else {
+                card.setDrawable(R.drawable.bad);
+            }
             card.setTitle(DataFetcher.getInstance().getAir().get(i).getLocation());
-            card.setDrawable(R.drawable.ic_launcher);
             mListView.add(card);
         }
         layout.setRefreshing(false);
