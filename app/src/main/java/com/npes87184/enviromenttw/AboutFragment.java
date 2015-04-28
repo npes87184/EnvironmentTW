@@ -117,7 +117,7 @@ public class AboutFragment extends Fragment {
         mListView.add(claim);
 
         SmallImageCard library = new SmallImageCard(getActivity());
-        library.setDescription("Jsoup, PullRefreshLayout, Materiallist and MaterialNavigationDrawer");
+        library.setDescription("Jsoup, PullRefreshLayout, Materiallist, hellocharts-android and MaterialNavigationDrawer");
         library.setDrawable(R.drawable.library);
         library.setTitle("Library");
         library.setTag("library");
@@ -133,7 +133,7 @@ public class AboutFragment extends Fragment {
         SmallImageCard code = new SmallImageCard(getActivity());
         code.setDescription(getString(R.string.code_detail));
         code.setDrawable(R.drawable.code);
-        code.setTitle("GirHub");
+        code.setTitle("GitHub");
         code.setTag("code");
         mListView.add(code);
 
