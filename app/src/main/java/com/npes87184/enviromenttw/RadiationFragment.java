@@ -1,17 +1,26 @@
 package com.npes87184.enviromenttw;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
-import com.dexafree.materialList.cards.SmallImageCard;
-import com.dexafree.materialList.view.MaterialListView;
+import com.npes87184.enviromenttw.model.RadiationAdapter;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by npes87184 on 2015/4/26.
@@ -19,8 +28,13 @@ import com.dexafree.materialList.view.MaterialListView;
 public class RadiationFragment extends Fragment implements FetchTask.OnFetchListener {
 
     private View v;
-    MaterialListView mListView;
+    private ListView listV;
+
+    private SharedPreferences prefs;
+    private RadiationAdapter adapter;
     PullRefreshLayout layout;
+    private final String KEY_RADIATION = "radiation";
+    private ArrayList<Boolean> star =  new ArrayList<Boolean>();
 
     public static RadiationFragment newInstance(int index) {
         RadiationFragment radiationFragment = new RadiationFragment();
@@ -45,7 +59,23 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        mListView = (MaterialListView) v.findViewById(R.id.material_listview);
+        listV = (ListView)v.findViewById(R.id.listview1);
+        prefs = getActivity().getPreferences(0);
+
+        listV.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent,View v,int id,long arg3) {
+                //save star or not
+                boolean temp = prefs.getBoolean(KEY_RADIATION + String.valueOf(id), false);
+                if(temp) {
+                    prefs.edit().putBoolean(KEY_RADIATION + String.valueOf(id), false).commit();
+                } else {
+                    prefs.edit().putBoolean(KEY_RADIATION + String.valueOf(id), true).commit();
+                }
+                adapter.setSelectItem(id, !temp);
+                adapter.notifyDataSetInvalidated();
+            }
+        });
 
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
@@ -54,12 +84,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
             radiation.setOnFetchListener(this);
             radiation.execute(DataType.Radiation);
         } else {
-            mListView.clear();
-            SmallImageCard card = new SmallImageCard(getActivity());
-            card.setDescription(getString(R.string.internet_detail));
-            card.setTitle(getString(R.string.internet));
-            //card.setDrawable(R.drawable.ic_launcher);
-            mListView.add(card);
+
         }
 
         // listen refresh event
@@ -74,13 +99,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
                     radiation.setOnFetchListener(RadiationFragment.this);
                     radiation.execute(DataType.Radiation);
                 } else {
-                    mListView.clear();
-                    SmallImageCard card = new SmallImageCard(getActivity());
-                    card.setDescription(getString(R.string.internet_detail));
-                    card.setTitle(getString(R.string.internet));
-                    //card.setDrawable(R.drawable.ic_launcher);
-                    layout.setRefreshing(false);
-                    mListView.add(card);
+
                 }
             }
         });
@@ -90,20 +109,12 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnRadiationFetchFinished() {
-        mListView.clear();
         for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
-            SmallImageCard card = new SmallImageCard(getActivity());
-            card.setDescription(DataFetcher.getInstance().getRadiations().get(i).getValue());
-            if(Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue())>0.2) {
-                card.setDrawable(R.drawable.normal);
-            } else if(Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue())>20) {
-                card.setDrawable(R.drawable.bad);
-            } else {
-                card.setDrawable(R.drawable.good);
-            }
-            card.setTitle(DataFetcher.getInstance().getRadiations().get(i).getLocation());
-            mListView.add(card);
+            star.add(prefs.getBoolean(KEY_RADIATION + String.valueOf(i), false));
         }
+        adapter = new RadiationAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
+        adapter.init(star);
+        listV.setAdapter(adapter);
         layout.setRefreshing(false);
     }
 
@@ -116,4 +127,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
     public void OnAirFinished() {
 
     }
+
+
 }
