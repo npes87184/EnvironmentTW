@@ -1,6 +1,8 @@
 package com.npes87184.enviromenttw;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -59,7 +61,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        layout.setRefreshing(true);
         listV = (ListView)v.findViewById(R.id.listview1);
         prefs = getActivity().getPreferences(1);
 
@@ -81,11 +82,18 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
-            FetchTask radiation = new FetchTask();
-            radiation.setOnFetchListener(this);
-            radiation.execute(DataType.Radiation);
+            OnRadiationFetchFinished();
         } else {
-
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle(getString((R.string.internet)));
+            alert.setMessage(getString((R.string.internet_detail)));
+            alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            alert.show();
         }
 
         // listen refresh event

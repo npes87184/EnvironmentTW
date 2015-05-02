@@ -48,13 +48,13 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_star, container, false);
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        layout.setRefreshing(true);
         mListView = (MaterialListView) v.findViewById(R.id.material_listview);
         prefs = getActivity().getPreferences(1);
 
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
+            layout.setRefreshing(true);
             FetchTask radiation = new FetchTask();
             radiation.setOnFetchListener(this);
             radiation.execute(DataType.Radiation);
