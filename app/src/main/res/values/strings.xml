@@ -24,4 +24,6 @@
 
     <string name="about">About</string>
     <string name="code_detail">This project is open source, you can click this card to see more information.</string>
+
+    <string name="star">Star</string>
 </resources>

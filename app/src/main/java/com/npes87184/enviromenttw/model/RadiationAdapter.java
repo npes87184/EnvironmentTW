@@ -58,7 +58,6 @@ public class RadiationAdapter extends BaseAdapter {
     }
 
     public void setSelectItem(int selectItem, boolean isStar) {
-        Log.i("infor", String.valueOf(selectItem));
         this.selectItem = selectItem;
         star.set(selectItem, isStar);
     }

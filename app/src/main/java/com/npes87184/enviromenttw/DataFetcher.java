@@ -99,7 +99,7 @@ public class DataFetcher {
         try {
             boolean first = true;
             DefaultHttpClient client = new DefaultHttpClient();
-            HttpGet method = new HttpGet(new URI("http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=PSI&$skip=0&$top=1000&format=csv"));
+            HttpGet method = new HttpGet(new URI("http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=County&$skip=0&$top=1000&format=csv"));
             HttpResponse res = client.execute(method);
             BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
             String line;

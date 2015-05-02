@@ -60,7 +60,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         listV = (ListView)v.findViewById(R.id.listview1);
-        prefs = getActivity().getPreferences(0);
+        prefs = getActivity().getPreferences(1);
 
         listV.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
