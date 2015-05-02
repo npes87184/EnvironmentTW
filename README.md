@@ -6,10 +6,15 @@ Show radiation, water, air information of Taiwan.
 
 Latest Version
 ========
-1.0
+1.1
 
 Changelog
 ========
+###1.1
+* Add a star section that can show star information
+* redesign Radiation and Air section
+* Fix GirHub -> GitHub
+
 ###1.0
 * Initial Release
 
@@ -20,16 +25,19 @@ Features
 3. Air data from <a href="http://opendata.epa.gov.tw/Data/Contents/AQX/">環境資源資料開放平台</a>
 4. Water reservoir data from <a href="http://fhy.wra.gov.tw/ReservoirPage_2011/StorageCapacity.aspx">水庫資料</a>
 5. Pull to Refresh in Radiation and Air
+6. Star news
 
 Picture
 ========
-<img src="http://truth.bahamut.com.tw/s01/201504/299512887cda424e83e23a3fef967101.PNG">
+<img src="http://truth.bahamut.com.tw/s01/201505/b3981df073f2af4f7f86eb21ab3c755f.PNG">
 
-<img src="http://truth.bahamut.com.tw/s01/201504/2b83934424e6c16dbda3c78aaae1d512.PNG">
+<img src="http://truth.bahamut.com.tw/s01/201505/72396a5d98c4572d112367344a805390.PNG">
+
+<img src="http://truth.bahamut.com.tw/s01/201505/385584470516ae17f9025985c550991b.PNG">
 
 <img src="http://truth.bahamut.com.tw/s01/201504/976977d2517994d51581b95ccf0700af.PNG">
 
-<img src="http://truth.bahamut.com.tw/s01/201504/8214ff7eb245dfc72e7aac3440aa8335.PNG">
+<img src="http://truth.bahamut.com.tw/s01/201505/e998aa474a78c98ed5701a45ee50d2c3.PNG">
 
 <img src="http://truth.bahamut.com.tw/s01/201504/aa2b42c63ac3b2d99518d248e92c3ffd.PNG">
 
