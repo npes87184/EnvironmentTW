@@ -117,10 +117,10 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     @Override
     public void OnAirFinished() {
-        for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
+        for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
             star.add(prefs.getBoolean(KEY_AIR + String.valueOf(i), false));
         }
-        adapter = new AirAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
+        adapter = new AirAdapter(getActivity(), DataFetcher.getInstance().getAir());
         adapter.init(star);
         listV.setAdapter(adapter);
         layout.setRefreshing(false);
