@@ -57,6 +57,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        layout.setRefreshing(true);
         listV = (ListView)v.findViewById(R.id.listview1);
         prefs = getActivity().getPreferences(1);
 
