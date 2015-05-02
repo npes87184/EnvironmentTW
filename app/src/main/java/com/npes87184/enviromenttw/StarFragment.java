@@ -98,7 +98,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             boolean temp = prefs.getBoolean(KEY_RADIATION + String.valueOf(i), false);
             if(temp) {
                 SmallImageCard card = new SmallImageCard(getActivity());
-                card.setDescription(DataFetcher.getInstance().getRadiations().get(i).getValue());
+                card.setDescription(DataFetcher.getInstance().getRadiations().get(i).getLocation() + "：" + DataFetcher.getInstance().getRadiations().get(i).getValue());
                 if (Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue()) > 0.2) {
                     card.setDrawable(R.drawable.normal);
                 } else if (Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue()) > 20) {
@@ -106,7 +106,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                 } else {
                     card.setDrawable(R.drawable.good);
                 }
-                card.setTitle(DataFetcher.getInstance().getRadiations().get(i).getLocation());
+                card.setTitle(getString(R.string.radiation));
                 mListView.add(card);
             }
         }
@@ -124,7 +124,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     public void OnAirFinished() {
         for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
             SmallImageCard card = new SmallImageCard(getActivity());
-            card.setDescription(DataFetcher.getInstance().getAir().get(i).getValue());
+            card.setDescription(DataFetcher.getInstance().getAir().get(i).getLocation() + "：" + DataFetcher.getInstance().getAir().get(i).getValue());
             if(Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1])<50) {
                 card.setDrawable(R.drawable.good);
             } else if(Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1])<100) {
@@ -132,7 +132,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             } else {
                 card.setDrawable(R.drawable.bad);
             }
-            card.setTitle(DataFetcher.getInstance().getAir().get(i).getLocation());
+            card.setTitle(getString(R.string.air));
             mListView.add(card);
         }
         layout.setRefreshing(false);

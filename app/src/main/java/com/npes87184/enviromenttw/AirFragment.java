@@ -1,6 +1,7 @@
 package com.npes87184.enviromenttw;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -8,10 +9,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.view.MaterialListView;
+import com.npes87184.enviromenttw.model.AirAdapter;
+import com.npes87184.enviromenttw.model.RadiationAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by npes87184 on 2015/4/26.
@@ -19,8 +26,13 @@ import com.dexafree.materialList.view.MaterialListView;
 public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     private View v;
-    MaterialListView mListView;
+    private ListView listV;
+
+    private SharedPreferences prefs;
+    private AirAdapter adapter;
     PullRefreshLayout layout;
+    private final String KEY_AIR = "air";
+    private ArrayList<Boolean> star =  new ArrayList<Boolean>();
 
     public static AirFragment newInstance(int index) {
         AirFragment airFragment = new AirFragment();
@@ -45,7 +57,23 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        mListView = (MaterialListView) v.findViewById(R.id.material_listview);
+        listV = (ListView)v.findViewById(R.id.listview1);
+        prefs = getActivity().getPreferences(1);
+
+        listV.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent,View v,int id,long arg3) {
+                //save star or not
+                boolean temp = prefs.getBoolean(KEY_AIR + String.valueOf(id), false);
+                if(temp) {
+                    prefs.edit().putBoolean(KEY_AIR + String.valueOf(id), false).commit();
+                } else {
+                    prefs.edit().putBoolean(KEY_AIR + String.valueOf(id), true).commit();
+                }
+                adapter.setSelectItem(id, !temp);
+                adapter.notifyDataSetInvalidated();
+            }
+        });
 
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
@@ -54,12 +82,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
             air.setOnFetchListener(this);
             air.execute(DataType.Air);
         } else {
-            mListView.clear();
-            SmallImageCard card = new SmallImageCard(getActivity());
-            card.setDescription(getString(R.string.internet_detail));
-            card.setTitle(getString(R.string.internet));
-            //card.setDrawable(R.drawable.ic_launcher);
-            mListView.add(card);
+
         }
 
         // listen refresh event
@@ -74,13 +97,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
                     air.setOnFetchListener(AirFragment.this);
                     air.execute(DataType.Air);
                 } else {
-                    mListView.clear();
-                    SmallImageCard card = new SmallImageCard(getActivity());
-                    card.setDescription(getString(R.string.internet_detail));
-                    card.setTitle(getString(R.string.internet));
-                    //card.setDrawable(R.drawable.ic_launcher);
-                    layout.setRefreshing(false);
-                    mListView.add(card);
+
                 }
             }
         });
@@ -100,21 +117,12 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     @Override
     public void OnAirFinished() {
-        mListView.clear();
-        for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
-            SmallImageCard card = new SmallImageCard(getActivity());
-            card.setDescription(DataFetcher.getInstance().getAir().get(i).getValue());
-            if(Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1])<50) {
-                card.setDrawable(R.drawable.good);
-            } else if(Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1])<100) {
-                card.setDrawable(R.drawable.normal);
-            } else {
-                card.setDrawable(R.drawable.bad);
-            }
-            card.setTitle(DataFetcher.getInstance().getAir().get(i).getLocation());
-            mListView.add(card);
+        for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
+            star.add(prefs.getBoolean(KEY_AIR + String.valueOf(i), false));
         }
+        adapter = new AirAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
+        adapter.init(star);
+        listV.setAdapter(adapter);
         layout.setRefreshing(false);
     }
-
 }
