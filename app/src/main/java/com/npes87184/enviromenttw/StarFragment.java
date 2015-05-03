@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,13 +126,13 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     @Override
     public void OnAirFinished() {
         for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
-            boolean temp = prefs.getBoolean(KEY_AIR + String.valueOf(i), false);
+            boolean temp = prefs.getBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false);
             if(temp) {
                 SmallImageCard card = new SmallImageCard(getActivity());
                 card.setDescription(DataFetcher.getInstance().getAir().get(i).getLocation() + "：" + DataFetcher.getInstance().getAir().get(i).getValue());
-                if (Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1]) < 50) {
+                if (Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split(":")[1]) < 50) {
                     card.setDrawable(R.drawable.good);
-                } else if (Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split("：")[1]) < 100) {
+                } else if (Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split(":")[1]) < 100) {
                     card.setDrawable(R.drawable.normal);
                 } else {
                     card.setDrawable(R.drawable.bad);

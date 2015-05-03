@@ -76,9 +76,9 @@ public class AirAdapter extends BaseAdapter {
 
         DataContainer line = (DataContainer)getItem(position);
         holder.value.setText(line.getLocation() + "：" + line.getValue());
-        if(Float.parseFloat(line.getValue().split("：")[1])<50) {
+        if(Float.parseFloat(line.getValue().split(":")[1])<50) {
             holder.color.setImageResource(R.drawable.good);
-        } else if(Float.parseFloat(line.getValue().split("：")[1])<100) {
+        } else if(Float.parseFloat(line.getValue().split(":")[1])<100) {
             holder.color.setImageResource(R.drawable.normal);
         } else {
             holder.color.setImageResource(R.drawable.bad);

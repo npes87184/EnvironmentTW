@@ -109,7 +109,7 @@ public class DataFetcher {
                     first = false;
                     continue;
                 }
-                DataContainer temp = new DataContainer(data[1], data[0] + "：" + data[2]);
+                DataContainer temp = new DataContainer(data[1], data[0] + ":" + data[2]);
                 air.add(temp);
             }
             first = true;

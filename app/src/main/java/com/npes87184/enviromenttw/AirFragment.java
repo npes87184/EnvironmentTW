@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,15 +65,15 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
         listV.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView parent,View v,int id,long arg3) {
+            public void onItemClick(AdapterView parent,View v,int i,long arg3) {
                 //save star or not
-                boolean temp = prefs.getBoolean(KEY_AIR + String.valueOf(id), false);
+                boolean temp = prefs.getBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false);
                 if(temp) {
-                    prefs.edit().putBoolean(KEY_AIR + String.valueOf(id), false).commit();
+                    prefs.edit().putBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false).commit();
                 } else {
-                    prefs.edit().putBoolean(KEY_AIR + String.valueOf(id), true).commit();
+                    prefs.edit().putBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], true).commit();
                 }
-                adapter.setSelectItem(id, !temp);
+                adapter.setSelectItem(i, !temp);
                 adapter.notifyDataSetInvalidated();
             }
         });
@@ -127,7 +128,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
     @Override
     public void OnAirFinished() {
         for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
-            star.add(prefs.getBoolean(KEY_AIR + String.valueOf(i), false));
+            star.add(prefs.getBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false));
         }
         adapter = new AirAdapter(getActivity(), DataFetcher.getInstance().getAir());
         adapter.init(star);
