@@ -137,6 +137,11 @@ public class RadiationMap  extends Fragment implements FetchTask.OnFetchListener
 
     }
 
+    @Override
+    public void OnUVFinished() {
+
+    }
+
     private void setupWebView() {
         webView = (WebView) v.findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);

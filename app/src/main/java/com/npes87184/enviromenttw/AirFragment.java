@@ -102,7 +102,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
                 // start refresh
                 ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = CM.getActiveNetworkInfo();
-                if((info != null) && info.isConnected()) {
+                if ((info != null) && info.isConnected()) {
                     FetchTask air = new FetchTask();
                     air.setOnFetchListener(AirFragment.this);
                     air.execute(DataType.Air);
@@ -134,5 +134,10 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         adapter.init(star);
         listV.setAdapter(adapter);
         layout.setRefreshing(false);
+    }
+
+    @Override
+    public void OnUVFinished() {
+
     }
 }

@@ -6,10 +6,14 @@ Show radiation, water, air information of Taiwan.
 
 Latest Version
 ========
-1.1
+1.2
 
 Changelog
 ========
+###1.2
+* Fix air data unstable
+* Add UV 
+
 ###1.1
 * Add a star section that can show star information
 * redesign Radiation and Air section
@@ -24,14 +28,16 @@ Features
 2. Radiation data from <a href="http://www.aec.gov.tw/%E8%B3%87%E8%A8%8A%E5%85%AC%E9%96%8B/%E9%96%8B%E6%94%BE%E8%B3%87%E6%96%99-Open-Data/02.%E5%85%A8%E5%9C%8B%E7%92%B0%E5%A2%83%E8%BC%BB%E5%B0%84%E5%81%B5%E6%B8%AC--219_2015_2017.html">行政院原子能源委員會</a>
 3. Air data from <a href="http://opendata.epa.gov.tw/Data/Contents/AQX/">環境資源資料開放平台</a>
 4. Water reservoir data from <a href="http://fhy.wra.gov.tw/ReservoirPage_2011/StorageCapacity.aspx">水庫資料</a>
-5. Pull to Refresh in Radiation and Air
-6. Star news
+5. UV data from <a href="http://data.gov.tw/node/6076">政府資料開放平台</a>
+6. Pull to Refresh in Radiation, UV and Air
+7. Star news
+
 
 Picture
 ========
-<img src="http://truth.bahamut.com.tw/s01/201505/b3981df073f2af4f7f86eb21ab3c755f.PNG">
+<img src="http://truth.bahamut.com.tw/s01/201505/5af1a75de4b6a936f09e8a89d46d5378.PNG">
 
-<img src="http://truth.bahamut.com.tw/s01/201505/72396a5d98c4572d112367344a805390.PNG">
+<img src="http://truth.bahamut.com.tw/s01/201505/bedcf29f23cf968d4b9012cd451d6eb9.PNG">
 
 <img src="http://truth.bahamut.com.tw/s01/201505/385584470516ae17f9025985c550991b.PNG">
 

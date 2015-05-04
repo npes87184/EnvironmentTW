@@ -1,5 +1,7 @@
 package com.npes87184.enviromenttw;
 
+import android.util.Log;
+
 import com.npes87184.enviromenttw.model.DataContainer;
 
 import org.apache.http.HttpResponse;
@@ -24,6 +26,7 @@ public class DataFetcher {
     private ArrayList<DataContainer> radiations = new ArrayList<DataContainer>();
     private ArrayList<DataContainer> water = new ArrayList<DataContainer>();
     private ArrayList<DataContainer> air = new ArrayList<DataContainer>();
+    private ArrayList<DataContainer> uv = new ArrayList<DataContainer>();
 
     private DataFetcher() {
     }
@@ -122,6 +125,36 @@ public class DataFetcher {
 
     public ArrayList<DataContainer> getAir() {
         return air;
+    }
+
+    public void fetchUV() {
+        uv.clear();
+        try {
+            boolean first = true;
+            DefaultHttpClient client = new DefaultHttpClient();
+            HttpGet method = new HttpGet(new URI("http://data.gov.tw/iisi/logaccess?dataUrl=http://opendata.epa.gov.tw/ws/Data/UV/?format=csv&ndctype=CSV&ndcnid=6076"));
+            HttpResponse res = client.execute(method);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
+            String line;
+            while((line = reader.readLine())!=null) {
+                String [] data = line.split(",");
+                if(first) {
+                    first = false;
+                    continue;
+                }
+                DataContainer temp = new DataContainer(data[0], data[1]);
+                uv.add(temp);
+            }
+            first = true;
+        } catch (IOException e) {
+
+        } catch (URISyntaxException e) {
+
+        }
+    }
+
+    public ArrayList<DataContainer> getUV() {
+        return uv;
     }
 }
 

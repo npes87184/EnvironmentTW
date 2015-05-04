@@ -1,5 +1,6 @@
 package com.npes87184.enviromenttw;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -25,6 +26,8 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     private SharedPreferences prefs;
     private final String KEY_RADIATION = "radiation";
     private final String KEY_AIR = "air";
+    private final String KEY_UV = "UV";
+    private ProgressDialog dialog;
 
     public static StarFragment newInstance(int index) {
         StarFragment starFragment = new StarFragment();
@@ -55,7 +58,8 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
-            layout.setRefreshing(true);
+            dialog = ProgressDialog.show(getActivity(),
+                    getString(R.string.load), getString(R.string.load_detail), true);
             FetchTask radiation = new FetchTask();
             radiation.setOnFetchListener(this);
             radiation.execute(DataType.Radiation);
@@ -75,7 +79,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                 // start refresh
                 ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = CM.getActiveNetworkInfo();
-                if((info != null) && info.isConnected()) {
+                if ((info != null) && info.isConnected()) {
                     FetchTask radiation = new FetchTask();
                     radiation.setOnFetchListener(StarFragment.this);
                     radiation.execute(DataType.Radiation);
@@ -141,6 +145,30 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                 mListView.add(card);
             }
         }
+        FetchTask uv = new FetchTask();
+        uv.setOnFetchListener(StarFragment.this);
+        uv.execute(DataType.UV);
+    }
+
+    @Override
+    public void OnUVFinished() {
+        for(int i=0;i<DataFetcher.getInstance().getUV().size();i++) {
+            boolean temp = prefs.getBoolean(KEY_UV + String.valueOf(i), false);
+            if(temp) {
+                SmallImageCard card = new SmallImageCard(getActivity());
+                card.setDescription(DataFetcher.getInstance().getUV().get(i).getLocation() + "：" + DataFetcher.getInstance().getUV().get(i).getValue());
+                if (Float.parseFloat(DataFetcher.getInstance().getUV().get(i).getValue()) < 3) {
+                    card.setDrawable(R.drawable.good);
+                } else if (Float.parseFloat(DataFetcher.getInstance().getUV().get(i).getValue()) < 6) {
+                    card.setDrawable(R.drawable.normal);
+                } else {
+                    card.setDrawable(R.drawable.bad);
+                }
+                card.setTitle(getString(R.string.UV));
+                mListView.add(card);
+            }
+        }
+        dialog.dismiss();
         layout.setRefreshing(false);
     }
 

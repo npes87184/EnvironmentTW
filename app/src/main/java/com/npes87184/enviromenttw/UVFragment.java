@@ -8,45 +8,41 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.npes87184.enviromenttw.model.RadiationAdapter;
+import com.npes87184.enviromenttw.model.UVAdapter;
 
 import java.util.ArrayList;
 
-
 /**
- * Created by npes87184 on 2015/4/26.
+ * Created by npes87184 on 2015/5/3.
  */
-public class RadiationFragment extends Fragment implements FetchTask.OnFetchListener {
+public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
 
     private View v;
     private ListView listV;
 
     private SharedPreferences prefs;
-    private RadiationAdapter adapter;
+    private UVAdapter adapter;
     PullRefreshLayout layout;
-    private final String KEY_RADIATION = "radiation";
+    private final String KEY_UV = "UV";
     private ArrayList<Boolean> star =  new ArrayList<Boolean>();
 
-    public static RadiationFragment newInstance(int index) {
-        RadiationFragment radiationFragment = new RadiationFragment();
+    public static UVFragment newInstance(int index) {
+        UVFragment uvFragment = new UVFragment();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("home", index);
-        radiationFragment.setArguments(args);
+        uvFragment.setArguments(args);
 
-        return radiationFragment;
+        return uvFragment;
     }
 
     @Override
@@ -68,11 +64,11 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
             @Override
             public void onItemClick(AdapterView parent,View v,int id,long arg3) {
                 //save star or not
-                boolean temp = prefs.getBoolean(KEY_RADIATION + String.valueOf(id), false);
+                boolean temp = prefs.getBoolean(KEY_UV + String.valueOf(id), false);
                 if(temp) {
-                    prefs.edit().putBoolean(KEY_RADIATION + String.valueOf(id), false).commit();
+                    prefs.edit().putBoolean(KEY_UV + String.valueOf(id), false).commit();
                 } else {
-                    prefs.edit().putBoolean(KEY_RADIATION + String.valueOf(id), true).commit();
+                    prefs.edit().putBoolean(KEY_UV + String.valueOf(id), true).commit();
                 }
                 adapter.setSelectItem(id, !temp);
                 adapter.notifyDataSetInvalidated();
@@ -82,7 +78,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
-            OnRadiationFetchFinished();
+            OnUVFinished();
         } else {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
@@ -104,9 +100,9 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
                 ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = CM.getActiveNetworkInfo();
                 if ((info != null) && info.isConnected()) {
-                    FetchTask radiation = new FetchTask();
-                    radiation.setOnFetchListener(RadiationFragment.this);
-                    radiation.execute(DataType.Radiation);
+                    FetchTask uv = new FetchTask();
+                    uv.setOnFetchListener(UVFragment.this);
+                    uv.execute(DataType.UV);
                 } else {
 
                 }
@@ -118,13 +114,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnRadiationFetchFinished() {
-        for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
-            star.add(prefs.getBoolean(KEY_RADIATION + String.valueOf(i), false));
-        }
-        adapter = new RadiationAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
-        adapter.init(star);
-        listV.setAdapter(adapter);
-        layout.setRefreshing(false);
+
     }
 
     @Override
@@ -139,7 +129,12 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnUVFinished() {
-
+        for(int i=0;i<DataFetcher.getInstance().getUV().size();i++) {
+            star.add(prefs.getBoolean(KEY_UV + String.valueOf(i), false));
+        }
+        adapter = new UVAdapter(getActivity(), DataFetcher.getInstance().getUV());
+        adapter.init(star);
+        listV.setAdapter(adapter);
+        layout.setRefreshing(false);
     }
-
 }

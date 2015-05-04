@@ -18,6 +18,7 @@ public class NavigationDrawer extends MaterialNavigationDrawer {
         this.addSection(newSection(getString(R.string.radiation_map), R.drawable.ic_perm_group_location, RadiationMap.newInstance(1)));
         this.addSection(newSection(getString(R.string.water_Reservoir), R.drawable.water, WaterFragment.newInstance(2)));
         this.addSection(newSection(getString(R.string.air), R.drawable.air, AirFragment.newInstance(3)));
+        this.addSection(newSection(getString(R.string.UV), R.drawable.uv, UVFragment.newInstance(4)));
    /*     this.addSection(newSection("Section 3", R.drawable.ic_mic_white_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#9c27b0")));
         this.addSection(newSection("Section",R.drawable.ic_hotel_grey600_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#03a9f4")));
 */

@@ -15,7 +15,7 @@
     <string name="air">空氣品質</string>
 
     <string name="claim_detail">所有影像都收集自網路，如有侵權歡迎立即告知。</string>
-    <string name="claim">宣言</string>
+    <string name="claim">聲明</string>
     <string name="contact_detail">如有任何問題或是有任何建議，歡迎直接點擊此卡片連繫我。</string>
     <string name="contact">聯繫我</string>
 
@@ -26,4 +26,9 @@
     <string name="code_detail">這是一個開源軟體，可以點此卡片得到更多資訊。</string>
 
     <string name="star">重點消息</string>
+
+    <string name="load">抓取資料中</string>
+    <string name="load_detail">從網路抓取資料中，請稍等...</string>
+
+    <string name="UV">紫外線</string>
 </resources>

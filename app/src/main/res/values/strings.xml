@@ -26,4 +26,8 @@
     <string name="code_detail">This project is open source, you can click this card to see more information.</string>
 
     <string name="star">Star</string>
+    <string name="load">Loading</string>
+    <string name="load_detail">Loading data from internet...</string>
+
+    <string name="UV">UV</string>
 </resources>
