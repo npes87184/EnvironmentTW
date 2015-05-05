@@ -64,11 +64,11 @@ public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
             @Override
             public void onItemClick(AdapterView parent,View v,int id,long arg3) {
                 //save star or not
-                boolean temp = prefs.getBoolean(KEY_UV + String.valueOf(id), false);
+                boolean temp = prefs.getBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(id).getLocation(), false);
                 if(temp) {
-                    prefs.edit().putBoolean(KEY_UV + String.valueOf(id), false).commit();
+                    prefs.edit().putBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(id).getLocation(), false).commit();
                 } else {
-                    prefs.edit().putBoolean(KEY_UV + String.valueOf(id), true).commit();
+                    prefs.edit().putBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(id).getLocation(), true).commit();
                 }
                 adapter.setSelectItem(id, !temp);
                 adapter.notifyDataSetInvalidated();
@@ -130,7 +130,7 @@ public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
     @Override
     public void OnUVFinished() {
         for(int i=0;i<DataFetcher.getInstance().getUV().size();i++) {
-            star.add(prefs.getBoolean(KEY_UV + String.valueOf(i), false));
+            star.add(prefs.getBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(i).getLocation(), false));
         }
         adapter = new UVAdapter(getActivity(), DataFetcher.getInstance().getUV());
         adapter.init(star);

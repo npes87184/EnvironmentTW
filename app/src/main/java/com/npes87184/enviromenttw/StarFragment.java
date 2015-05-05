@@ -153,7 +153,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     @Override
     public void OnUVFinished() {
         for(int i=0;i<DataFetcher.getInstance().getUV().size();i++) {
-            boolean temp = prefs.getBoolean(KEY_UV + String.valueOf(i), false);
+            boolean temp = prefs.getBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(i).getLocation(), false);
             if(temp) {
                 SmallImageCard card = new SmallImageCard(getActivity());
                 card.setDescription(DataFetcher.getInstance().getUV().get(i).getLocation() + "：" + DataFetcher.getInstance().getUV().get(i).getValue());
