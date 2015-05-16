@@ -47,12 +47,12 @@ public class DataFetcher {
             Elements tableTags = doc.getElementsByAttributeValue("class", "list nowrap").select("table");
             Elements tdTags = tableTags.select("td").not("td[colspan]");
 
-            for (int i = 0; i < tdTags.size(); i += 12) {
-                if (i + 12 <= tdTags.size() - 1) {
-                    if ((i + 11) % 12 == 11 && tdTags.get(i + 11).text().equals("--")) {
+            for (int i = 0; i < tdTags.size(); i += 11) {
+                if (i + 11 <= tdTags.size() - 1) {
+                    if ((i + 10) % 11 == 10 && tdTags.get(i + 10).text().equals("--")) {
                         continue;
                     } else {
-                        DataContainer temp = new DataContainer(tdTags.get(i).text(), tdTags.get(i + 11).text().replace(" %", ""));
+                        DataContainer temp = new DataContainer(tdTags.get(i).text(), tdTags.get(i + 10).text().replace(" %", ""));
                         water.add(temp);
                     }
                 }
