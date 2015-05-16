@@ -33,7 +33,6 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     private SharedPreferences prefs;
     private AirAdapter adapter;
-    PullRefreshLayout layout;
     private final String KEY_AIR = "air";
     private ArrayList<Boolean> star =  new ArrayList<Boolean>();
 
@@ -59,7 +58,6 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
-        layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         listV = (ListView)v.findViewById(R.id.listview1);
         prefs = getActivity().getPreferences(1);
 
@@ -77,7 +75,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
                 adapter.notifyDataSetInvalidated();
             }
         });
-/*
+
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
@@ -94,7 +92,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
             });
             alert.show();
         }
-*/
+/*
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle(getString((R.string.data_source)));
         alert.setMessage(getString((R.string.data_source_detail)));
@@ -105,35 +103,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
             }
         });
         alert.show();
-
-        // listen refresh event
-        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // start refresh
-             /*   ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo info = CM.getActiveNetworkInfo();
-                if ((info != null) && info.isConnected()) {
-                    FetchTask air = new FetchTask();
-                    air.setOnFetchListener(AirFragment.this);
-                    air.execute(DataType.Air);
-                } else {
-
-                }*/
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle(getString((R.string.data_source)));
-                alert.setMessage(getString((R.string.data_source_detail)));
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-                layout.setRefreshing(false);
-            }
-        });
-
+*/
         return v;
     }
 
@@ -155,7 +125,6 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         adapter = new AirAdapter(getActivity(), DataFetcher.getInstance().getAir());
         adapter.init(star);
         listV.setAdapter(adapter);
-        layout.setRefreshing(false);
     }
 
     @Override

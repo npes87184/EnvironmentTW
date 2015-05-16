@@ -1,7 +1,5 @@
 package com.npes87184.enviromenttw;
 
-import android.util.Log;
-
 import com.npes87184.enviromenttw.model.DataContainer;
 
 import org.apache.http.HttpResponse;
@@ -27,6 +25,7 @@ public class DataFetcher {
     private ArrayList<DataContainer> water = new ArrayList<DataContainer>();
     private ArrayList<DataContainer> air = new ArrayList<DataContainer>();
     private ArrayList<DataContainer> uv = new ArrayList<DataContainer>();
+
 
     private DataFetcher() {
     }
@@ -136,6 +135,7 @@ public class DataFetcher {
             HttpResponse res = client.execute(method);
             BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
             String line;
+
             while((line = reader.readLine())!=null) {
                 String [] data = line.split(",");
                 if(first) {

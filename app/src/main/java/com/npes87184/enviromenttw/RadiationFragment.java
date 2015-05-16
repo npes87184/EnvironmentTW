@@ -34,7 +34,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     private SharedPreferences prefs;
     private RadiationAdapter adapter;
-    PullRefreshLayout layout;
     private final String KEY_RADIATION = "radiation";
     private ArrayList<Boolean> star =  new ArrayList<Boolean>();
 
@@ -60,7 +59,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_radiation, container, false);
-        layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         listV = (ListView)v.findViewById(R.id.listview1);
         prefs = getActivity().getPreferences(1);
 
@@ -96,23 +94,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
             alert.show();
         }
 
-        // listen refresh event
-        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // start refresh
-                ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo info = CM.getActiveNetworkInfo();
-                if ((info != null) && info.isConnected()) {
-                    FetchTask radiation = new FetchTask();
-                    radiation.setOnFetchListener(RadiationFragment.this);
-                    radiation.execute(DataType.Radiation);
-                } else {
-
-                }
-            }
-        });
-
         return v;
     }
 
@@ -124,7 +105,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         adapter = new RadiationAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
         adapter.init(star);
         listV.setAdapter(adapter);
-        layout.setRefreshing(false);
     }
 
     @Override

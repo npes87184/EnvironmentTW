@@ -28,4 +28,9 @@ public class NavigationDrawer extends MaterialNavigationDrawer {
         // add pattern
         this.setBackPattern(MaterialNavigationDrawer.BACKPATTERN_BACK_ANYWHERE);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        // do not call super.onSaveInstanceState()
+    }
 }

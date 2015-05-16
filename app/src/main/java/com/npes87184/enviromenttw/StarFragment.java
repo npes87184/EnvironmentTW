@@ -3,6 +3,7 @@ package com.npes87184.enviromenttw;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -31,7 +32,6 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
 
     public static StarFragment newInstance(int index) {
         StarFragment starFragment = new StarFragment();
-
         // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("home", index);
@@ -51,6 +51,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         v = inflater.inflate(R.layout.fragment_star, container, false);
+
         layout = (PullRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
         mListView = (MaterialListView) v.findViewById(R.id.material_listview);
         prefs = getActivity().getPreferences(1);
@@ -60,7 +61,6 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         if((info != null) && info.isConnected()) {
             dialog = ProgressDialog.show(getActivity(),
                     getString(R.string.load), getString(R.string.load_detail), true);
-            //dialog.setCancelable(true);
 
             FetchTask radiation = new FetchTask();
             radiation.setOnFetchListener(this);
@@ -119,10 +119,11 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                 mListView.add(card);
             }
         }
-     /*   FetchTask air = new FetchTask();
+        FetchTask air = new FetchTask();
         air.setOnFetchListener(StarFragment.this);
-        air.execute(DataType.Air);*/
-        dialog.dismiss();
+        air.execute(DataType.Air);
+    /*    dialog.dismiss();
+        layout.setRefreshing(false);*/
     }
 
     @Override

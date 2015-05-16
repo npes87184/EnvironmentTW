@@ -108,6 +108,9 @@ public class WaterFragment extends Fragment implements FetchTask.OnFetchListener
 
             float tt = Float.valueOf(DataFetcher.getInstance().getWater().get(i).getValue());
             if(tt<=30) {
+                if(tt<1) {
+                    tt = 1;
+                }
                 values.add(new SubcolumnValue(tt, ChartUtils.COLOR_RED));
             } else if(30<tt && tt <=60) {
                 values.add(new SubcolumnValue(tt, ChartUtils.COLOR_ORANGE));
