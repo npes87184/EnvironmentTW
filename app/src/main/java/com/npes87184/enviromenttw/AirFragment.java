@@ -77,7 +77,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
                 adapter.notifyDataSetInvalidated();
             }
         });
-
+/*
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
@@ -94,13 +94,24 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
             });
             alert.show();
         }
+*/
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle(getString((R.string.data_source)));
+        alert.setMessage(getString((R.string.data_source_detail)));
+        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
 
         // listen refresh event
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // start refresh
-                ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+             /*   ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo info = CM.getActiveNetworkInfo();
                 if ((info != null) && info.isConnected()) {
                     FetchTask air = new FetchTask();
@@ -108,7 +119,18 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
                     air.execute(DataType.Air);
                 } else {
 
-                }
+                }*/
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle(getString((R.string.data_source)));
+                alert.setMessage(getString((R.string.data_source_detail)));
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+                layout.setRefreshing(false);
             }
         });
 

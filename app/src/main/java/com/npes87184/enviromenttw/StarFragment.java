@@ -60,6 +60,8 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         if((info != null) && info.isConnected()) {
             dialog = ProgressDialog.show(getActivity(),
                     getString(R.string.load), getString(R.string.load_detail), true);
+            //dialog.setCancelable(true);
+
             FetchTask radiation = new FetchTask();
             radiation.setOnFetchListener(this);
             radiation.execute(DataType.Radiation);
@@ -117,9 +119,10 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                 mListView.add(card);
             }
         }
-        FetchTask air = new FetchTask();
+     /*   FetchTask air = new FetchTask();
         air.setOnFetchListener(StarFragment.this);
-        air.execute(DataType.Air);
+        air.execute(DataType.Air);*/
+        dialog.dismiss();
     }
 
     @Override

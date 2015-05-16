@@ -6,6 +6,10 @@
 
     <string name="internet">網路問題</string>
     <string name="internet_detail">沒有網路連線</string>
+
+    <string name="data_source">資料來源</string>
+    <string name="data_source_detail">資料來源有問題，暫時關閉這部分功能。</string>
+
     <string name="gps_fail">無法獲取 GPS 資料</string>
     <string name="detail">詳細資料</string>
 
