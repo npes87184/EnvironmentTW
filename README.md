@@ -6,21 +6,12 @@ Show radiation, water, air information of Taiwan.
 
 Latest Version
 ========
-1.2
+1.25
 
 Changelog
 ========
-###1.2
-* Fix air data unstable
-* Add UV 
-
-###1.1
-* Add a star section that can show star information
-* redesign Radiation and Air section
-* Fix GirHub -> GitHub
-
-###1.0
-* Initial Release
+###1.25
+* Fix orientation
 
 Features
 ========
