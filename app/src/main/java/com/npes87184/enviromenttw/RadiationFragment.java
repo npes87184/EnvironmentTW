@@ -99,12 +99,25 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnRadiationFetchFinished() {
-        for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
-            star.add(prefs.getBoolean(KEY_RADIATION + String.valueOf(i), false));
+        if(DataFetcher.getInstance().getRadiations().size()==0) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle(getString((R.string.internet)));
+            alert.setMessage(getString((R.string.internet_stauts)));
+            alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            alert.show();
+        } else {
+            for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
+                star.add(prefs.getBoolean(KEY_RADIATION + String.valueOf(i), false));
+            }
+            adapter = new RadiationAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
+            adapter.init(star);
+            listV.setAdapter(adapter);
         }
-        adapter = new RadiationAdapter(getActivity(), DataFetcher.getInstance().getRadiations());
-        adapter.init(star);
-        listV.setAdapter(adapter);
     }
 
     @Override

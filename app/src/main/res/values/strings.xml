@@ -6,6 +6,7 @@
 
     <string name="internet">Internet</string>
     <string name="internet_detail">Does not have Internet</string>
+    <string name="internet_stauts">Can not get data from sever</string>
 
     <string name="data_source">Data Source</string>
     <string name="data_source_detail">Data Source has some problem.</string>

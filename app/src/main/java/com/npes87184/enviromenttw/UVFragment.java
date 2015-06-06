@@ -121,11 +121,24 @@ public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
 
     @Override
     public void OnUVFinished() {
-        for(int i=0;i<DataFetcher.getInstance().getUV().size();i++) {
-            star.add(prefs.getBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(i).getLocation(), false));
+        if(DataFetcher.getInstance().getUV().size()==0) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle(getString((R.string.internet)));
+            alert.setMessage(getString((R.string.internet_stauts)));
+            alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            alert.show();
+        } else {
+            for(int i=0;i<DataFetcher.getInstance().getUV().size();i++) {
+                star.add(prefs.getBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(i).getLocation(), false));
+            }
+            adapter = new UVAdapter(getActivity(), DataFetcher.getInstance().getUV());
+            adapter.init(star);
+            listV.setAdapter(adapter);
         }
-        adapter = new UVAdapter(getActivity(), DataFetcher.getInstance().getUV());
-        adapter.init(star);
-        listV.setAdapter(adapter);
     }
 }

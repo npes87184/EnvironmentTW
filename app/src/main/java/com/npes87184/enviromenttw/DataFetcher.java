@@ -5,6 +5,8 @@ import com.npes87184.enviromenttw.model.DataContainer;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -71,6 +73,9 @@ public class DataFetcher {
         try {
             boolean first = true;
             DefaultHttpClient client = new DefaultHttpClient();
+            HttpParams params = client.getParams();
+            HttpConnectionParams.setConnectionTimeout(params, 5000);
+            HttpConnectionParams.setSoTimeout(params, 5000);
             HttpGet method = new HttpGet(new URI("http://www.aec.gov.tw/open/gammamonitor.csv"));
             HttpResponse res = client.execute(method);
             BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent(),"BIG5"));
@@ -101,6 +106,9 @@ public class DataFetcher {
         try {
             boolean first = true;
             DefaultHttpClient client = new DefaultHttpClient();
+            HttpParams params = client.getParams();
+            HttpConnectionParams.setConnectionTimeout(params, 5000);
+            HttpConnectionParams.setSoTimeout(params, 5000);
             HttpGet method = new HttpGet(new URI("http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=County&$skip=0&$top=1000&format=csv"));
             HttpResponse res = client.execute(method);
             BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
@@ -131,6 +139,9 @@ public class DataFetcher {
         try {
             boolean first = true;
             DefaultHttpClient client = new DefaultHttpClient();
+            HttpParams params = client.getParams();
+            HttpConnectionParams.setConnectionTimeout(params, 5000);
+            HttpConnectionParams.setSoTimeout(params, 5000);
             HttpGet method = new HttpGet(new URI("http://data.gov.tw/iisi/logaccess?dataUrl=http://opendata.epa.gov.tw/ws/Data/UV/?format=csv&ndctype=CSV&ndcnid=6076"));
             HttpResponse res = client.execute(method);
             BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
