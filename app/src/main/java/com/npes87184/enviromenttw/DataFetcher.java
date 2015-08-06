@@ -142,7 +142,7 @@ public class DataFetcher {
             HttpParams params = client.getParams();
             HttpConnectionParams.setConnectionTimeout(params, 5000);
             HttpConnectionParams.setSoTimeout(params, 5000);
-            HttpGet method = new HttpGet(new URI("http://data.gov.tw/iisi/logaccess?dataUrl=http://opendata.epa.gov.tw/ws/Data/UV/?format=csv&ndctype=CSV&ndcnid=6076"));
+            HttpGet method = new HttpGet(new URI("http://opendata.epa.gov.tw/ws/Data/UV/?$orderby=PublishAgency&$skip=0&$top=1000&format=csv"));
             HttpResponse res = client.execute(method);
             BufferedReader reader = new BufferedReader(new InputStreamReader(res.getEntity().getContent()));
             String line;
