@@ -6,10 +6,13 @@ Show radiation, water, air information of Taiwan.
 
 Latest Version
 ========
-1.27
+1.28
 
 Changelog
 ========
+###1.28
+* fix FC due to opendata unstable
+
 ###1.27
 * fix FC due to opendata hyperlink change
 

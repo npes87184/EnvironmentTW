@@ -36,4 +36,6 @@
     <string name="load_detail">從網路抓取資料中，請稍等...</string>
 
     <string name="UV">紫外線</string>
+    <string name="nodata">無資料</string>
+
 </resources>
