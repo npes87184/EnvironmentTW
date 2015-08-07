@@ -160,13 +160,17 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             boolean temp = prefs.getBoolean(KEY_UV + DataFetcher.getInstance().getUV().get(i).getLocation(), false);
             if(temp) {
                 SmallImageCard card = new SmallImageCard(getActivity());
-                card.setDescription(DataFetcher.getInstance().getUV().get(i).getLocation() + "：" + DataFetcher.getInstance().getUV().get(i).getValue());
-                if (Float.parseFloat(DataFetcher.getInstance().getUV().get(i).getValue()) < 3) {
-                    card.setDrawable(R.drawable.good);
-                } else if (Float.parseFloat(DataFetcher.getInstance().getUV().get(i).getValue()) < 6) {
-                    card.setDrawable(R.drawable.normal);
-                } else {
-                    card.setDrawable(R.drawable.bad);
+                try {
+                    card.setDescription(DataFetcher.getInstance().getUV().get(i).getLocation() + "：" + DataFetcher.getInstance().getUV().get(i).getValue());
+                    if (Float.parseFloat(DataFetcher.getInstance().getUV().get(i).getValue()) < 3) {
+                        card.setDrawable(R.drawable.good);
+                    } else if (Float.parseFloat(DataFetcher.getInstance().getUV().get(i).getValue()) < 6) {
+                        card.setDrawable(R.drawable.normal);
+                    } else {
+                        card.setDrawable(R.drawable.bad);
+                    }
+                } catch (Exception e) {
+                    card.setDescription(DataFetcher.getInstance().getUV().get(i).getLocation() + "：" + getString(R.string.nodata));
                 }
                 card.setTitle(getString(R.string.UV));
                 mListView.add(card);
@@ -174,6 +178,15 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         }
         dialog.dismiss();
         layout.setRefreshing(false);
+    }
+
+    private boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
     }
 
 }

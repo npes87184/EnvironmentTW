@@ -23,8 +23,10 @@ public class UVAdapter extends BaseAdapter {
     private int selectItem = -1;
     private boolean isStar = false;
     private ArrayList<Boolean> star;
+    Context c;
 
-    public UVAdapter(Context context,List<DataContainer> uv){
+    public UVAdapter(Context context, List<DataContainer> uv){
+        c = context;
         myInflater = LayoutInflater.from(context);
         this.uv = uv;
     }
@@ -75,14 +77,19 @@ public class UVAdapter extends BaseAdapter {
         );
 
         DataContainer line = (DataContainer)getItem(position);
-        holder.value.setText(line.getLocation() + ":" + line.getValue());
-        if(Float.parseFloat(line.getValue())<3) {
-            holder.color.setImageResource(R.drawable.good);
-        } else if(Float.parseFloat(line.getValue())<6) {
-            holder.color.setImageResource(R.drawable.normal);
-        } else {
-            holder.color.setImageResource(R.drawable.bad);
+        try {
+            holder.value.setText(line.getLocation() + ":" + line.getValue());
+            if(Float.parseFloat(line.getValue())<3) {
+                holder.color.setImageResource(R.drawable.good);
+            } else if(Float.parseFloat(line.getValue())<6) {
+                holder.color.setImageResource(R.drawable.normal);
+            } else {
+                holder.color.setImageResource(R.drawable.bad);
+            }
+        } catch (Exception e) {
+            holder.value.setText(line.getLocation() + ":" + c.getString(R.string.nodata));
         }
+
 
         if (!star.get(position)) {
             holder.star.setImageResource(R.drawable.btn_star_on_disabled_focused_holo_dark);
@@ -92,5 +99,14 @@ public class UVAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    private boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
     }
 }
