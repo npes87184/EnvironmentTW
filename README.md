@@ -6,10 +6,14 @@ Show radiation, water, air information of Taiwan.
 
 Latest Version
 ========
-1.28
+1.30
 
 Changelog
 ========
+###1.30
+* add waterInfo
+* clean up code
+
 ###1.28
 * fix FC due to opendata unstable
 
@@ -35,7 +39,7 @@ Features
 
 Picture
 ========
-<img src="http://truth.bahamut.com.tw/s01/201505/5af1a75de4b6a936f09e8a89d46d5378.PNG">
+<img src="http://truth.bahamut.com.tw/s01/201508/070034e3bff022e54ad8a5c13e4f4e70.PNG">
 
 <img src="http://truth.bahamut.com.tw/s01/201505/bedcf29f23cf968d4b9012cd451d6eb9.PNG">
 
