@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by npes87184 on 2015/4/26.
  */
-public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
+public class AirFragment extends Fragment {
 
     private View v;
     private ListView listV;
@@ -102,18 +102,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         return v;
     }
 
-    @Override
-    public void OnRadiationFetchFinished() {
-
-    }
-
-    @Override
-    public void OnWaterFetchFinished() {
-
-    }
-
-    @Override
-    public void OnAirFinished() {
+    private void OnAirFinished() {
         if(DataFetcher.getInstance().getAir().size()==0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
@@ -135,13 +124,4 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         }
     }
 
-    @Override
-    public void OnUVFinished() {
-
-    }
-
-    @Override
-    public void OnWaterInfoFetchFinished() {
-
-    }
 }

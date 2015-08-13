@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by npes87184 on 2015/5/3.
  */
-public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
+public class UVFragment extends Fragment {
 
     private View v;
     private ListView listV;
@@ -87,38 +87,11 @@ public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
             });
             alert.show();
         }
-/*
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-        alert.setTitle(getString((R.string.data_source)));
-        alert.setMessage(getString((R.string.data_source_detail)));
-        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        alert.show();*/
 
         return v;
     }
 
-    @Override
-    public void OnRadiationFetchFinished() {
-
-    }
-
-    @Override
-    public void OnWaterFetchFinished() {
-
-    }
-
-    @Override
-    public void OnAirFinished() {
-
-    }
-
-    @Override
-    public void OnUVFinished() {
+    private void OnUVFinished() {
         if(DataFetcher.getInstance().getUV().size()==0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
@@ -138,10 +111,5 @@ public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
             adapter.init(star);
             listV.setAdapter(adapter);
         }
-    }
-
-    @Override
-    public void OnWaterInfoFetchFinished() {
-
     }
 }

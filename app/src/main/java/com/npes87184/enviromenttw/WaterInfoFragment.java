@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by npes87184 on 2015/8/13.
  */
-public class WaterInfoFragment extends Fragment implements FetchTask.OnFetchListener {
+public class WaterInfoFragment extends Fragment {
 
 
     private View v;
@@ -88,38 +88,11 @@ public class WaterInfoFragment extends Fragment implements FetchTask.OnFetchList
             });
             alert.show();
         }
-/*
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-        alert.setTitle(getString((R.string.data_source)));
-        alert.setMessage(getString((R.string.data_source_detail)));
-        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        alert.show();
-*/
+
         return v;
     }
 
-    @Override
-    public void OnRadiationFetchFinished() {
-
-    }
-
-    @Override
-    public void OnWaterFetchFinished() {
-
-    }
-
-    @Override
-    public void OnAirFinished() {
-
-    }
-
-    @Override
-    public void OnWaterInfoFetchFinished() {
+    private void OnWaterInfoFetchFinished() {
         if(DataFetcher.getInstance().getWater().size()==0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
@@ -133,7 +106,7 @@ public class WaterInfoFragment extends Fragment implements FetchTask.OnFetchList
             alert.show();
         } else {
             for(int i=0;i<DataFetcher.getInstance().getWater().size();i++) {
-                star.add(prefs.getBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getValue().split(":")[0], false));
+                star.add(prefs.getBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getLocation(), false));
             }
             adapter = new WaterInfoAdapter(getActivity(), DataFetcher.getInstance().getWater());
             adapter.init(star);
@@ -141,8 +114,4 @@ public class WaterInfoFragment extends Fragment implements FetchTask.OnFetchList
         }
     }
 
-    @Override
-    public void OnUVFinished() {
-
-    }
 }

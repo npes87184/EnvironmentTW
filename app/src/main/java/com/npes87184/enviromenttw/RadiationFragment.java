@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by npes87184 on 2015/4/26.
  */
-public class RadiationFragment extends Fragment implements FetchTask.OnFetchListener {
+public class RadiationFragment extends Fragment {
 
     private View v;
     private ListView listV;
@@ -92,8 +92,7 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
         return v;
     }
 
-    @Override
-    public void OnRadiationFetchFinished() {
+    private void OnRadiationFetchFinished() {
         if(DataFetcher.getInstance().getRadiations().size()==0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
@@ -113,26 +112,6 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
             adapter.init(star);
             listV.setAdapter(adapter);
         }
-    }
-
-    @Override
-    public void OnWaterFetchFinished() {
-
-    }
-
-    @Override
-    public void OnAirFinished() {
-
-    }
-
-    @Override
-    public void OnUVFinished() {
-
-    }
-
-    @Override
-    public void OnWaterInfoFetchFinished() {
-
     }
 
 }
