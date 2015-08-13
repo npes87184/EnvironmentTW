@@ -3,12 +3,10 @@ package com.npes87184.enviromenttw;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +26,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     private final String KEY_RADIATION = "radiation";
     private final String KEY_AIR = "air";
     private final String KEY_UV = "UV";
+    private final String KEY_WATER = "water";
     private ProgressDialog dialog;
 
     public static StarFragment newInstance(int index) {
@@ -119,9 +118,9 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                 mListView.add(card);
             }
         }
-        FetchTask air = new FetchTask();
-        air.setOnFetchListener(StarFragment.this);
-        air.execute(DataType.Air);
+        FetchTask water = new FetchTask();
+        water.setOnFetchListener(StarFragment.this);
+        water.execute(DataType.Water);
     /*    dialog.dismiss();
         layout.setRefreshing(false);*/
     }
@@ -178,6 +177,33 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         }
         dialog.dismiss();
         layout.setRefreshing(false);
+    }
+
+    @Override
+    public void OnWaterInfoFetchFinished() {
+        for(int i=0;i<DataFetcher.getInstance().getWater().size();i++) {
+            boolean temp = prefs.getBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getLocation(), false);
+            if(temp) {
+                SmallImageCard card = new SmallImageCard(getActivity());
+                try {
+                    card.setDescription(DataFetcher.getInstance().getWater().get(i).getLocation() + "：" + DataFetcher.getInstance().getWater().get(i).getValue() + "%");
+                    if (Float.parseFloat(DataFetcher.getInstance().getWater().get(i).getValue()) > 60) {
+                        card.setDrawable(R.drawable.good);
+                    } else if (Float.parseFloat(DataFetcher.getInstance().getWater().get(i).getValue()) > 30) {
+                        card.setDrawable(R.drawable.normal);
+                    } else {
+                        card.setDrawable(R.drawable.bad);
+                    }
+                } catch (Exception e) {
+                    card.setDescription(DataFetcher.getInstance().getWater().get(i).getLocation() + "：" + getString(R.string.nodata));
+                }
+                card.setTitle(getString(R.string.water_Info));
+                mListView.add(card);
+            }
+        }
+        FetchTask air = new FetchTask();
+        air.setOnFetchListener(StarFragment.this);
+        air.execute(DataType.Air);
     }
 
     private boolean isFloat(String str) {

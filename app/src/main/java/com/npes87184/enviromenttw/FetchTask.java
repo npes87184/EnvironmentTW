@@ -17,6 +17,7 @@ public class FetchTask extends AsyncTask<DataType, Void, DataType> {
         public void OnWaterFetchFinished();
         public void OnAirFinished();
         public void OnUVFinished();
+        public void OnWaterInfoFetchFinished();
     }
 
     private OnFetchListener onFetchListener;
@@ -48,6 +49,7 @@ public class FetchTask extends AsyncTask<DataType, Void, DataType> {
                 break;
             case Water:
                 onFetchListener.OnWaterFetchFinished();
+                onFetchListener.OnWaterInfoFetchFinished();
                 break;
             case Air:
                 onFetchListener.OnAirFinished();

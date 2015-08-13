@@ -133,6 +133,11 @@ public class RadiationMap  extends Fragment implements FetchTask.OnFetchListener
     }
 
     @Override
+    public void OnWaterInfoFetchFinished() {
+
+    }
+
+    @Override
     public void OnAirFinished() {
 
     }

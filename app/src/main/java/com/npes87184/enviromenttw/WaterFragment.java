@@ -89,6 +89,11 @@ public class WaterFragment extends Fragment implements FetchTask.OnFetchListener
     }
 
     @Override
+    public void OnWaterInfoFetchFinished() {
+
+    }
+
+    @Override
     public void OnWaterFetchFinished() {
         chart.setOnValueTouchListener(new ValueTouchListener());
         chart.setValueSelectionEnabled(false);

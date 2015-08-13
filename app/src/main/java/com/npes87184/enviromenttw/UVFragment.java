@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.baoyz.widget.PullRefreshLayout;
-import com.npes87184.enviromenttw.model.RadiationAdapter;
 import com.npes87184.enviromenttw.model.UVAdapter;
 
 import java.util.ArrayList;
@@ -140,5 +138,10 @@ public class UVFragment extends Fragment implements FetchTask.OnFetchListener {
             adapter.init(star);
             listV.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public void OnWaterInfoFetchFinished() {
+
     }
 }

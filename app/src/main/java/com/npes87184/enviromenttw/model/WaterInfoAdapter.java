@@ -14,34 +14,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by npes87184 on 2015/4/28.
+ * Created by npes87184 on 2015/8/13.
  */
-public class RadiationAdapter extends BaseAdapter {
+public class WaterInfoAdapter extends BaseAdapter {
 
     private LayoutInflater myInflater;
-    private List<DataContainer> radiation;
+    private List<DataContainer> waterInfo;
     private int selectItem = -1;
     private boolean isStar = false;
     private ArrayList<Boolean> star;
 
-    public RadiationAdapter(Context context,List<DataContainer> radiation){
+    public WaterInfoAdapter(Context context,List<DataContainer> waterInfo){
         myInflater = LayoutInflater.from(context);
-        this.radiation = radiation;
+        this.waterInfo = waterInfo;
     }
 
     @Override
     public int getCount() {
-        return radiation.size();
+        return waterInfo.size();
     }
 
     @Override
     public Object getItem(int arg0) {
-        return radiation.get(arg0);
+        return waterInfo.get(arg0);
     }
 
     @Override
     public long getItemId(int position) {
-        return radiation.indexOf(getItem(position));
+        return waterInfo.indexOf(getItem(position));
     }
 
     private class ViewHolder {
@@ -75,13 +75,13 @@ public class RadiationAdapter extends BaseAdapter {
         );
 
         DataContainer line = (DataContainer)getItem(position);
-        holder.value.setText(line.getLocation() + "：" + line.getValue());
-        if(Float.parseFloat(line.getValue())>0.2) {
-            holder.color.setImageResource(R.drawable.normal);
-        } else if(Float.parseFloat(line.getValue())>20) {
-            holder.color.setImageResource(R.drawable.bad);
-        } else {
+        holder.value.setText(line.getLocation() + "：" + line.getValue() + "%");
+        if(Float.parseFloat(line.getValue())>60) {
             holder.color.setImageResource(R.drawable.good);
+        } else if(Float.parseFloat(line.getValue())>30) {
+            holder.color.setImageResource(R.drawable.normal);
+        } else {
+            holder.color.setImageResource(R.drawable.bad);
         }
 
         if (!star.get(position)) {

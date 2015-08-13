@@ -8,17 +8,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.baoyz.widget.PullRefreshLayout;
 import com.npes87184.enviromenttw.model.RadiationAdapter;
 
 import java.util.ArrayList;
@@ -132,6 +127,11 @@ public class RadiationFragment extends Fragment implements FetchTask.OnFetchList
 
     @Override
     public void OnUVFinished() {
+
+    }
+
+    @Override
+    public void OnWaterInfoFetchFinished() {
 
     }
 

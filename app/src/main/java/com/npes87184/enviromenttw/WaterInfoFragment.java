@@ -14,32 +14,33 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.npes87184.enviromenttw.model.AirAdapter;
+import com.npes87184.enviromenttw.model.WaterInfoAdapter;
 
 import java.util.ArrayList;
 
 /**
- * Created by npes87184 on 2015/4/26.
+ * Created by npes87184 on 2015/8/13.
  */
-public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
+public class WaterInfoFragment extends Fragment implements FetchTask.OnFetchListener {
+
 
     private View v;
     private ListView listV;
 
     private SharedPreferences prefs;
-    private AirAdapter adapter;
-    private final String KEY_AIR = "air";
+    private WaterInfoAdapter adapter;
+    private final String KEY_WATER = "water";
     private ArrayList<Boolean> star =  new ArrayList<Boolean>();
 
-    public static AirFragment newInstance(int index) {
-        AirFragment airFragment = new AirFragment();
+    public static WaterInfoFragment newInstance(int index) {
+        WaterInfoFragment waterInfoFragment = new WaterInfoFragment();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("home", index);
-        airFragment.setArguments(args);
+        waterInfoFragment.setArguments(args);
 
-        return airFragment;
+        return waterInfoFragment;
     }
 
     @Override
@@ -60,11 +61,11 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
             @Override
             public void onItemClick(AdapterView parent,View v,int i,long arg3) {
                 //save star or not
-                boolean temp = prefs.getBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false);
+                boolean temp = prefs.getBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getLocation(), false);
                 if(temp) {
-                    prefs.edit().putBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false).commit();
+                    prefs.edit().putBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getLocation(), false).commit();
                 } else {
-                    prefs.edit().putBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], true).commit();
+                    prefs.edit().putBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getLocation(), true).commit();
                 }
                 adapter.setSelectItem(i, !temp);
                 adapter.notifyDataSetInvalidated();
@@ -74,7 +75,7 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
         ConnectivityManager CM = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = CM.getActiveNetworkInfo();
         if((info != null) && info.isConnected()) {
-            OnAirFinished();
+            OnWaterInfoFetchFinished();
         } else {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
@@ -114,7 +115,12 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     @Override
     public void OnAirFinished() {
-        if(DataFetcher.getInstance().getAir().size()==0) {
+
+    }
+
+    @Override
+    public void OnWaterInfoFetchFinished() {
+        if(DataFetcher.getInstance().getWater().size()==0) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(getString((R.string.internet)));
             alert.setMessage(getString((R.string.internet_stauts)));
@@ -126,10 +132,10 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
             });
             alert.show();
         } else {
-            for(int i=0;i<DataFetcher.getInstance().getAir().size();i++) {
-                star.add(prefs.getBoolean(KEY_AIR + DataFetcher.getInstance().getAir().get(i).getValue().split(":")[0], false));
+            for(int i=0;i<DataFetcher.getInstance().getWater().size();i++) {
+                star.add(prefs.getBoolean(KEY_WATER + DataFetcher.getInstance().getWater().get(i).getValue().split(":")[0], false));
             }
-            adapter = new AirAdapter(getActivity(), DataFetcher.getInstance().getAir());
+            adapter = new WaterInfoAdapter(getActivity(), DataFetcher.getInstance().getWater());
             adapter.init(star);
             listV.setAdapter(adapter);
         }
@@ -137,11 +143,6 @@ public class AirFragment extends Fragment implements FetchTask.OnFetchListener {
 
     @Override
     public void OnUVFinished() {
-
-    }
-
-    @Override
-    public void OnWaterInfoFetchFinished() {
 
     }
 }

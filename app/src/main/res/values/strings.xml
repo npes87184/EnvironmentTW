@@ -16,7 +16,8 @@
 
     <string name="radiation">Radiation</string>
     <string name="radiation_map">Radiation Map</string>
-    <string name="water_Reservoir">Water Reservoir</string>
+    <string name="water_Reservoir">Water Chart</string>
+    <string name="water_Info">Water Info</string>
     <string name="air">Air</string>
 
     <string name="claim_detail">All images are collected from Internet. If there is any tort, please inform immediately.</string>

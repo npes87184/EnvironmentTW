@@ -16,7 +16,8 @@
 
     <string name="radiation">輻射資訊</string>
     <string name="radiation_map">輻射地圖</string>
-    <string name="water_Reservoir">水庫資訊</string>
+    <string name="water_Reservoir">水庫圖表</string>
+    <string name="water_Info">水庫資訊</string>
     <string name="air">空氣品質</string>
 
     <string name="claim_detail">所有影像都收集自網路，如有侵權歡迎立即告知。</string>
