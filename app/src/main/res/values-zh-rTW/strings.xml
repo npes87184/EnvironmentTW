@@ -28,6 +28,7 @@
     <string name="subject">台灣環境通</string>
     <string name="mail_body">我的問題是：\n我的手機型號是： \n我的 Android 版本是：\n其他：</string>
 
+    <string name="mergeCard_on">合併相同類別卡片</string>
     <string name="about">關於</string>
     <string name="code_detail">這是一個開源軟體，可以點此卡片得到更多資訊。</string>
 
@@ -38,5 +39,9 @@
 
     <string name="UV">紫外線</string>
     <string name="nodata">無資料</string>
+
+    <string name="bad">極差</string>
+    <string name="good">優</string>
+    <string name="not_good">差</string>
 
 </resources>

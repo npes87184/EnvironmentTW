@@ -28,7 +28,6 @@
     <string name="subject">Enviroment TW</string>
     <string name="mail_body">My problem is:\nMy phone is: \nMy android version is:\nother:</string>
 
-    <string name="setting">Setting</string>
     <string name="mergeCard_on">Merge Card</string>
     <string name="about">About</string>
     <string name="code_detail">This project is open source, you can click this card to see more information.</string>
