@@ -308,7 +308,12 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
         super.onCreateOptionsMenu(menu, inflater);
-        menu.add(0,0,0,getString(R.string.mergeCard_on));
+
+        if(prefs.getBoolean(KEY_MERGECARD,false)) {
+            menu.add(0, 0, 0, getString(R.string.mergeCard_off));
+        } else {
+            menu.add(0, 0, 0, getString(R.string.mergeCard_on));
+        }
     }
 
     @Override
