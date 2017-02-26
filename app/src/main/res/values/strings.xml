@@ -4,6 +4,9 @@
     <string name="hello_world">Capacity(%)</string>
     <string name="action_settings">Settings</string>
 
+    <string name="no_star">No star</string>
+    <string name="no_star_detail">You can star data to read it more quickly.</string>
+
     <string name="internet">Internet</string>
     <string name="internet_detail">Does not have Internet</string>
     <string name="internet_stauts">Can not get data from sever</string>

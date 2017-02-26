@@ -4,6 +4,9 @@
     <string name="hello_world">蓄水量(%)</string>
     <string name="action_settings">Settings</string>
 
+    <string name="no_star">沒有勾選重點消息</string>
+    <string name="no_star_detail">可以在每頁的資料中選擇重點消息，以便快速瀏覽。</string>
+
     <string name="internet">網路問題</string>
     <string name="internet_detail">沒有網路連線</string>
     <string name="internet_stauts">伺服器資料無法抓取</string>

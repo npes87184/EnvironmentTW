@@ -33,6 +33,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
     private final String KEY_WATER = "water";
     private final String KEY_MERGECARD = "mergeCard";
     private ProgressDialog dialog;
+    private int iStarNum = 0;
 
     public static StarFragment newInstance(int index) {
         StarFragment starFragment = new StarFragment();
@@ -124,6 +125,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                     }
                     card.setTitle(getString(R.string.radiation));
                     mListView.add(card);
+                    ++iStarNum;
                 } else {
                     data = data + DataFetcher.getInstance().getRadiations().get(i).getLocation() + "：" + DataFetcher.getInstance().getRadiations().get(i).getValue();
                     if (Float.parseFloat(DataFetcher.getInstance().getRadiations().get(i).getValue()) > 0.2) {
@@ -143,6 +145,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             card.setDrawable(R.drawable.radiation);
             card.setTitle(getString(R.string.radiation));
             mListView.add(card);
+            ++iStarNum;
         }
         FetchTask water = new FetchTask();
         water.setOnFetchListener(StarFragment.this);
@@ -172,6 +175,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                     }
                     card.setTitle(getString(R.string.air));
                     mListView.add(card);
+                    ++iStarNum;
                 } else {
                     data = data + DataFetcher.getInstance().getAir().get(i).getLocation() + "：" + DataFetcher.getInstance().getAir().get(i).getValue();
                     if (Float.parseFloat(DataFetcher.getInstance().getAir().get(i).getValue().split(":")[1]) < 50) {
@@ -190,6 +194,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             card.setDrawable(R.drawable.air);
             card.setTitle(getString(R.string.air));
             mListView.add(card);
+            ++iStarNum;
         }
         FetchTask uv = new FetchTask();
         uv.setOnFetchListener(StarFragment.this);
@@ -218,6 +223,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                     }
                     card.setTitle(getString(R.string.UV));
                     mListView.add(card);
+                    ++iStarNum;
                 } else {
                     try {
                         data = data + DataFetcher.getInstance().getUV().get(i).getLocation() + "：" + DataFetcher.getInstance().getUV().get(i).getValue();
@@ -240,7 +246,9 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             card.setDrawable(R.drawable.uv);
             card.setTitle(getString(R.string.UV));
             mListView.add(card);
+            ++iStarNum;
         }
+        addNoStarCard();
         dialog.dismiss();
         layout.setRefreshing(false);
     }
@@ -267,6 +275,7 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
                     }
                     card.setTitle(getString(R.string.water_Info));
                     mListView.add(card);
+                    ++iStarNum;
                 } else {
                     try {
                         data = data + DataFetcher.getInstance().getWater().get(i).getLocation() + "：" + DataFetcher.getInstance().getWater().get(i).getValue() + "%";
@@ -289,10 +298,22 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
             card.setDrawable(R.drawable.water);
             card.setTitle(getString(R.string.water_Info));
             mListView.add(card);
+            ++iStarNum;
         }
         FetchTask air = new FetchTask();
         air.setOnFetchListener(StarFragment.this);
         air.execute(DataType.Air);
+    }
+
+    private void addNoStarCard() {
+        if (0 == iStarNum) {
+            SmallImageCard card = new SmallImageCard(getActivity());
+            card.setDescription(getString(R.string.no_star_detail));
+        //    card.setDrawable(R.drawable.water);
+            card.setTitle(getString(R.string.no_star));
+            mListView.add(card);
+            iStarNum = 0;
+        }
     }
 
     @Override
