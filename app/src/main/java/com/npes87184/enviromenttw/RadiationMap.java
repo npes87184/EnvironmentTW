@@ -25,7 +25,7 @@ public class RadiationMap  extends Fragment implements FetchTask.OnFetchListener
 
     private static final String MAP_URL = "file:///android_asset/map.html";
     private WebView webView;
-    private String[] inputStrings = new String[45];
+    private String[] inputStrings;
     Double longitude;
     Double latitude;
 
@@ -121,6 +121,7 @@ public class RadiationMap  extends Fragment implements FetchTask.OnFetchListener
 
     @Override
     public void OnRadiationFetchFinished() {
+        inputStrings = new String[DataFetcher.getInstance().getRadiations().size()];
         for(int i=0;i<DataFetcher.getInstance().getRadiations().size();i++) {
             inputStrings[i] = DataFetcher.getInstance().getRadiations().get(i).getLocation() + "：" +DataFetcher.getInstance().getRadiations().get(i).getValue();
         }
