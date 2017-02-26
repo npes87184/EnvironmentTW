@@ -295,15 +295,6 @@ public class StarFragment extends Fragment implements FetchTask.OnFetchListener 
         air.execute(DataType.Air);
     }
 
-    private boolean isFloat(String str) {
-        try {
-            Float.parseFloat(str);
-            return true;
-        } catch(Exception e) {
-            return false;
-        }
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
